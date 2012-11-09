@@ -21,7 +21,7 @@ require_once LEPROGRESS_TRUST_PATH . '/class/LeprogressUtils.class.php';
 // Define a basic manifesto.
 //
 $modversion['name'] = _MI_LEPROGRESS_LANG_LEPROGRESS;
-$modversion['version'] = 0.01;
+$modversion['version'] = 0.2;
 $modversion['description'] = _MI_LEPROGRESS_DESC_LEPROGRESS;
 $modversion['author'] = _MI_LEPROGRESS_LANG_AUTHOR;
 $modversion['credits'] = _MI_LEPROGRESS_LANG_CREDITS;

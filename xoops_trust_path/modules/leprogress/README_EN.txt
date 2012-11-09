@@ -16,6 +16,8 @@ Main Feature
 
 Update History
 --------------
+2012.11.09 [0.20]
+* Bug Fixes
 
 Support
 -------
