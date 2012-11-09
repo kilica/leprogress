@@ -1,0 +1,30 @@
+<div class="leprogress">
+<{include file="db:`$dirname`_inc_menu.html"}>
+
+<h1><{$smarty.const._MD_LEPROGRESS_LANG_APPROVAL_LIST}></h1>
+
+<{if count($objects) > 0}>
+  <{foreach item=objs from=$objects}>
+  <{assign var=dir value=$objs[0]->getShow('dirname')}>
+  <{assign var=dataname value=$objs[0]->getShow('dataname')}>
+  <h2><{$objs[0]->getShow('dirname')}> - <{$dataname}>
+      <a class="btn btn-mini btn-primary" href="<{xoops_cooluri dirname=$dirname dataname=approval action=edit query=$query|sprintf:"$dir":"$dataname"}>"><{$smarty.const._MD_LEPROGRESS_LANG_ADD_A_NEW_APPROVAL}></a>
+  </h2>
+
+  <ul class="unstyled">
+  <{foreach item=obj from=$objs}>
+  <{if $obj->get('uid')>0}>
+    <li>[<{$smarty.const._MD_LEPROGRESS_LANG_STEP}> <{$obj->getShow('step')}>] <{$obj->getShow('uid')|xoops_user:"user_name"}>
+    <a class="btn btn-mini" href="<{xoops_cooluri dirname=$dirname dataname=approval data_id=$obj->getShow('approval_id') action=edit}>"><{$smarty.const._EDIT}></a>
+    <a class="btn btn-mini" href="<{xoops_cooluri dirname=$dirname dataname=approval data_id=$obj->getShow('approval_id') action=delete}>"><{$smarty.const._DELETE}></a>
+    </li>
+  <{else}>
+    <{$smarty.const._MD_LEPROGRESS_MESSAGE_NO_APPROVALS_EXIST}>
+  <{/if}>
+  <{/foreach}>
+  </ul>
+  <{/foreach}>
+<{else}>
+  <{$smarty.const._MD_LEPROGRESS_MESSAGE_ADD_A_APPROVAL}>
+<{/if}>
+</div>

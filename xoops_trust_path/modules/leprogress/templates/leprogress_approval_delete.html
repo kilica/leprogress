@@ -1,0 +1,25 @@
+<div class="leprogress">
+<{include file="db:`$dirname`_inc_menu.html"}>
+<h1><{$smarty.const._MD_LEPROGRESS_LANG_APPROVAL_DELETE}></h1>
+
+<div class="alert alert-warning"><{$smarty.const._MD_LEPROGRESS_MESSAGE_CONFIRM_DELETE}></div>
+
+<form class="form-horizontal" action="./index.php?action=ApprovalDelete" method="post">
+  <dl class="dl-horizontal">
+    <dt><{$smarty.const._MD_LEPROGRESS_LANG_UID}></dt>
+    <dd><{$object->getShow('uid')|xoops_user:'user_name'}></dd>
+    <dt><{$smarty.const._MD_LEPROGRESS_LANG_DIRNAME}></dt>
+    <dd><{$object->getShow('dirname')}></dd>
+    <dt><{$smarty.const._MD_LEPROGRESS_LANG_DATANAME}></dt>
+    <dd><{$object->getShow('dataname')}></dd>
+    <dt><{$smarty.const._MD_LEPROGRESS_LANG_STEP}></dt>
+    <dd><{$object->getShow('step')}></dd>
+  </dl>
+  <div class="form-actions">
+    <{xoops_token form=$actionForm}>
+    <{xoops_input type=hidden name=approval_id value=$actionForm->get('approval_id')}>
+    <button type="submit" class="btn btn-primary" value="<{$smarty.const._DELETE}>"><{$smarty.const._DELETE}></button>
+    <button type="submit" class="btn" value="<{$smarty.const._CANCEL}>" name="_form_control_cancel"><{$smarty.const._CANCEL}></button>
+  </div>
+</form>
+</div>

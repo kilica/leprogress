@@ -1,0 +1,45 @@
+<div class="leprogress">
+<{include file="db:`$dirname`_inc_menu.html"}>
+<h1><a href="<{$object->get('url')}>"><{$object->getShow('title')}></a></h1>
+<dl class="dl-horizontal">
+  <dt><{$smarty.const._MD_LEPROGRESS_LANG_TARGET_MODULE}></dt>
+  <dd><{$object->getShow('dirname')}> / <{$object->getShow('dataname')}> / <{$object->getShow('target_id')}></dd>
+  <dt><{$smarty.const._MD_LEPROGRESS_LANG_CREATED_BY}></dt>
+  <dd><{$object->getShow('uid')|xoops_user:"user_name"}></dd>
+  <dt><{$smarty.const._MD_LEPROGRESS_LANG_STEP}></dt>
+  <dd><{$object->getShow('step')}></dd>
+  <dt><{$smarty.const._MD_LEPROGRESS_LANG_STATUS}></dt>
+  <dd><{$object->getShowStatus()}></dd>
+  <dt><{$smarty.const._MD_LEPROGRESS_LANG_POSTTIME}></dt>
+  <dd><{$object->get('posttime')|xoops_formattimestamp:m}></dd>
+  <{if $object->get('deletetime')>0}>
+  <dt><{$smarty.const._MD_LEPROGRESS_LANG_DELETETIME}></dt>
+  <dd><{$object->get('deletetime')|xoops_formattimestamp:m}></dd>
+  <{/if}>
+</dl>
+
+<h2><{$smarty.const._MD_LEPROGRESS_LANG_HISTORY}></h2>
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th><{$smarty.const._MD_LEPROGRESS_LANG_APPROVED_BY}></th>
+    <th><{$smarty.const._MD_LEPROGRESS_LANG_STEP}></th>
+    <th><{$smarty.const._MD_LEPROGRESS_LANG_RESULT}></th>
+    <th><{$smarty.const._MD_LEPROGRESS_LANG_APPROVEDTIME}></th>
+  </tr>
+  </thead>
+  <tbody>
+  <{foreach item=history from=$object->mHistory}>
+  <tr>
+    <td><{$history->getShow('uid')|xoops_user:"user_name"}></td>
+    <td><{$history->getShow('step')}></td>
+    <td><{$history->getShowResult()}></td>
+    <td><{$history->getShow('posttime')|xoops_formattimestamp:m}></td>
+  </tr>
+    <tr>
+        <td colspan="4"><{$history->getShow('comment')}></td>
+    </tr>
+  <{/foreach}>
+  </tbody>
+</table>
+</div>

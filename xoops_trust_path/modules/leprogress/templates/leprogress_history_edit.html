@@ -1,0 +1,80 @@
+<div class="leprogress">
+<{include file="db:`$dirname`_inc_menu.html"}>
+
+<{if $actionForm->hasError()}>
+  <ul class="alert alert-error">
+    <{foreach item=message from=$actionForm->getErrorMessages()}>
+      <li><{$message|xoops_escape}></li>
+    <{/foreach}>
+  </ul>
+<{/if}>
+
+<h1><{$smarty.const._MD_LEPROGRESS_LANG_APPROVE_ITEM}></h1>
+
+<dl class="dl-horizontal">
+    <dt><{$smarty.const._MD_LEPROGRESS_LANG_TARGET_MODULE}></dt>
+    <dd><{$object->mItem->getShow('dirname')}> / <{$object->mItem->getShow('dataname')}> / <{$object->mItem->getShow('target_id')}></dd>
+    <dt><{$smarty.const._MD_LEPROGRESS_LANG_TITLE}></dt>
+    <dd><a href="<{$object->mItem->get('url')|xoops_escape}>"><{$object->mItem->getShow('title')}></a></dd>
+    <dt><{$smarty.const._USERNAME}></dt>
+    <dd><{$object->mItem->getShow('uid')|xoops_user:"user_name"}></dd>
+    <dt><{$smarty.const._MD_LEPROGRESS_LANG_STEP}></dt>
+    <dd><{$object->mItem->getShow('step')}></dd>
+    <dt><{$smarty.const._MD_LEPROGRESS_LANG_STATUS}></dt>
+    <dd><{$object->mItem->getShowStatus()}></dd>
+    <dt><{$smarty.const._MD_LEPROGRESS_LANG_POSTTIME}></dt>
+    <dd><{$object->mItem->get('posttime')|xoops_formattimestamp:m}></dd>
+    <{if $object->mItem->get('deletetime')>0}>
+    <dt><{$smarty.const._MD_LEPROGRESS_LANG_DELETETIME}></dt>
+    <dd><{$object->mItem->get('deletetime')|xoops_formattimestamp:m}></dd>
+    <{/if}>
+</dl>
+
+<form class="form-horizontal" action="<{xoops_cooluri dirname=$dirname dataname=history data_id=$object->getShow('progress_id') action=edit}>" method="post">
+  <div class="control-group">
+    <label><{$smarty.const._MD_LEPROGRESS_LANG_RESULT}></label>
+    <div class="controls">
+      <label><input type="radio" name="result" value="9" /><{$smarty.const._MD_LEPROGRESS_LANG_RESULT_APPROVE}></label>
+      <label><input type="radio" name="result" value="1" /><{$smarty.const._MD_LEPROGRESS_LANG_RESULT_REJECT}></label>
+    </div>
+  </div>
+  <div class="control-group">
+    <label><{$smarty.const._MD_LEPROGRESS_LANG_COMMENT}></label>
+    <div class="controls">
+      <{xoops_textarea type=text name=comment value=$actionForm->get('comment')}>
+    </div>
+  </div>
+  <div class="form-actions">
+    <{xoops_token form=$actionForm}>
+    <{xoops_input type=hidden name=item_id value=$actionForm->get('item_id')}>
+    <{xoops_input type=hidden name=progress_id value=$actionForm->get('progress_id')}>
+    <button type="submit" class="btn btn-primary" value="<{$smarty.const._SUBMIT}>"><{$smarty.const._SUBMIT}></button>
+    <button type="submit" class="btn btn-primary" value="<{$smarty.const._CANCEL}>" name="_form_control_cancel"><{$smarty.const._CANCEL}></button>
+  </div>
+</form>
+
+<h2><{$smarty.const._MD_LEPROGRESS_LANG_HISTORY}></h2>
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th><{$smarty.const._MD_LEPROGRESS_LANG_APPROVED_BY}></th>
+    <th><{$smarty.const._MD_LEPROGRESS_LANG_STEP}></th>
+    <th><{$smarty.const._MD_LEPROGRESS_LANG_RESULT}></th>
+    <th><{$smarty.const._MD_LEPROGRESS_LANG_APPROVEDTIME}></th>
+  </tr>
+  </thead>
+  <tbody>
+  <{foreach item=history from=$object->mItem->mHistory}>
+  <tr>
+    <td><{$history->getShow('uid')|xoops_user:"user_name"}></td>
+    <td><{$history->getShow('step')}></td>
+    <td><{$history->getShowResult()}></td>
+    <td><{$history->getShow('posttime')|xoops_formattimestamp:m}></td>
+  </tr>
+    <tr>
+        <td colspan="4"><{$history->getShow('comment')}></td>
+    </tr>
+  <{/foreach}>
+  </tbody>
+</table>
+</div>

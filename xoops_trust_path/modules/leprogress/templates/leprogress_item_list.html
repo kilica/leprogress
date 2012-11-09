@@ -1,0 +1,61 @@
+<div class="leprogress">
+<{include file="db:`$dirname`_inc_menu.html"}>
+
+<h1><{if $actionName==''||$actionName=='ItemList'}><{$smarty.const._MD_LEPROGRESS_LANG_ITEM_LIST}><{elseif $actionName=='MytaskList'}><{$smarty.const._MD_LEPROGRESS_LANG_MYTASK_LIST}><{/if}></h1>
+<{if count($objects) > 0}>
+  <div class="pagenavi"><{xoops_pagenavi pagenavi=$pageNavi}></div>
+  <table class="table table-striped" summary="">
+    <thead>
+      <tr>
+        <th>
+          <{$smarty.const._MD_LEPROGRESS_LANG_ITEM_ID}>
+          <a href="<{xoops_cooluri dirname=$dirname dataname=$dataname}>?<{$pageNavi->getPrefix()}>sort=<{$smarty.const.LEPROGRESS_ITEM_SORT_KEY_ITEM_ID}>"><img src="<{$xoops_url}>/modules/<{$dirname}>/images/up.gif" alt="<{$smarty.const._ASCENDING}>" title="<{$smarty.const._ASCENDING}>" /></a>
+          <a href="<{xoops_cooluri dirname=$dirname dataname=$dataname}>?<{$pageNavi->getPrefix()}>sort=-<{$smarty.const.LEPROGRESS_ITEM_SORT_KEY_ITEM_ID}>"><img src="<{$xoops_url}>/modules/<{$dirname}>/images/down.gif" alt="<{$smarty.const._DESCENDING}>" title="<{$smarty.const._DESCENDING}>" /></a>
+        </th>
+        <th>
+          <{$smarty.const._MD_LEPROGRESS_LANG_STATUS}>
+          <a href="<{xoops_cooluri dirname=$dirname dataname=$dataname}>?<{$pageNavi->getPrefix()}>sort=<{$smarty.const.LEPROGRESS_ITEM_SORT_KEY_STATUS}>"><img src="<{$xoops_url}>/modules/<{$dirname}>/images/up.gif" alt="<{$smarty.const._ASCENDING}>" title="<{$smarty.const._ASCENDING}>" /></a>
+          <a href="<{xoops_cooluri dirname=$dirname dataname=$dataname}>?<{$pageNavi->getPrefix()}>sort=-<{$smarty.const.LEPROGRESS_ITEM_SORT_KEY_STATUS}>"><img src="<{$xoops_url}>/modules/<{$dirname}>/images/down.gif" alt="<{$smarty.const._DESCENDING}>" title="<{$smarty.const._DESCENDING}>" /></a>
+        </th>
+        <th>
+          <{$smarty.const._MD_LEPROGRESS_LANG_STEP}>
+        </th>
+        <th>
+          <{$smarty.const._MD_LEPROGRESS_LANG_POSTTIME}>
+          <a href="<{xoops_cooluri dirname=$dirname dataname=$dataname}>?<{$pageNavi->getPrefix()}>sort=<{$smarty.const.LEPROGRESS_ITEM_SORT_KEY_POSTTIME}>"><img src="<{$xoops_url}>/modules/<{$dirname}>/images/up.gif" alt="<{$smarty.const._ASCENDING}>" title="<{$smarty.const._ASCENDING}>" /></a>
+          <a href="<{xoops_cooluri dirname=$dirname dataname=$dataname}>?<{$pageNavi->getPrefix()}>sort=-<{$smarty.const.LEPROGRESS_ITEM_SORT_KEY_POSTTIME}>"><img src="<{$xoops_url}>/modules/<{$dirname}>/images/down.gif" alt="<{$smarty.const._DESCENDING}>" title="<{$smarty.const._DESCENDING}>" /></a>
+        </th>
+        <th>
+          <{$smarty.const._MD_LEPROGRESS_LANG_CREATED_BY}>
+          <a href="<{xoops_cooluri dirname=$dirname dataname=$dataname}>?<{$pageNavi->getPrefix()}>sort=<{$smarty.const.LEPROGRESS_ITEM_SORT_KEY_UID}>"><img src="<{$xoops_url}>/modules/<{$dirname}>/images/up.gif" alt="<{$smarty.const._ASCENDING}>" title="<{$smarty.const._ASCENDING}>" /></a>
+          <a href="<{xoops_cooluri dirname=$dirname dataname=$dataname}>?<{$pageNavi->getPrefix()}>sort=-<{$smarty.const.LEPROGRESS_ITEM_SORT_KEY_UID}>"><img src="<{$xoops_url}>/modules/<{$dirname}>/images/down.gif" alt="<{$smarty.const._DESCENDING}>" title="<{$smarty.const._DESCENDING}>" /></a>
+        </th>
+        <th>
+          <{$smarty.const._MD_LEPROGRESS_LANG_TITLE}>
+        </th>
+        <th>
+          <{$smarty.const._MD_LEPROGRESS_LANG_TARGET_MODULE}>
+          <a href="<{xoops_cooluri dirname=$dirname dataname=$dataname}>?<{$pageNavi->getPrefix()}>sort=<{$smarty.const.LEPROGRESS_ITEM_SORT_KEY_DIRNAME}>"><img src="<{$xoops_url}>/modules/<{$dirname}>/images/up.gif" alt="<{$smarty.const._ASCENDING}>" title="<{$smarty.const._ASCENDING}>" /></a>
+          <a href="<{xoops_cooluri dirname=$dirname dataname=$dataname}>?<{$pageNavi->getPrefix()}>sort=-<{$smarty.const.LEPROGRESS_ITEM_SORT_KEY_DIRNAME}>"><img src="<{$xoops_url}>/modules/<{$dirname}>/images/down.gif" alt="<{$smarty.const._DESCENDING}>" title="<{$smarty.const._DESCENDING}>" /></a>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <{foreach item=obj from=$objects}>
+        <tr class="<{cycle values='odd,even'}>">
+          <td><a href="<{xoops_cooluri dirname=$dirname dataname=history query='item_id='|cat:$obj->getShow('item_id') action=edit}>"><{$obj->getShow('item_id')}></a></td>
+          <td><a href="<{xoops_cooluri dirname=$dirname dataname=history query='item_id='|cat:$obj->getShow('item_id') action=edit}>"><{$obj->getShowStatus()}></a></td>
+          <td><{$obj->getShow('step')}></td>
+          <td><{$obj->get('posttime')|xoops_formattimestamp:m}></td>
+          <td><{$obj->getShow('uid')|xoops_user:"user_name"}></td>
+          <td><a href="<{$obj->get('url')}>"><{$obj->getShow('title')}></a></td>
+          <td><{$obj->getShow('dirname')}> / <{$obj->getShow('dataname')}> / <{$obj->getShow('target_id')}></td>
+        </tr>
+      <{/foreach}>
+    </tbody>
+  </table>
+  <div class="pagenavi"><{xoops_pagenavi pagenavi=$pageNavi}></div>
+<{else}>
+  <div class="alert alert-info"><{$smarty.const._MD_LEPROGRESS_MESSAGE_NO_TASK}></div>
+<{/if}>
+</div>
